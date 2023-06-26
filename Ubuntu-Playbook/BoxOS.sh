@@ -32,8 +32,8 @@ if [ -d "$HOME/Downloads/BoxOS-Ubuntu/bspwm/bspwm" ]; then
   cp -r "$HOME/Downloads/BoxOS-Ubuntu/bspwm/bspwm" ~/.config
 fi
 
-if [ -d "$HOME/Downloads/BoxOS-Ubuntu/sxhkd/sxhkd" ]; then
-  cp -r "$HOME/Downloads/BoxOS-Ubuntu/sxhkd/sxhkd" ~/.config
+if [ -d "$HOME/Downloads/BoxOS-Ubuntu/sxhkd" ]; then
+  cp -r "$HOME/Downloads/BoxOS-Ubuntu/sxhkd" ~/.config
 fi
 
 if [ -d "$HOME/Downloads/BoxOS-Ubuntu/polybar/polybar" ]; then

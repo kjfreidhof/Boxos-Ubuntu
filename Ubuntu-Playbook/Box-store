@@ -1,0 +1,181 @@
+#!/bin/bash
+
+# Function to install packages using apt-get
+install_with_apt() {
+  sudo apt-get install "$1"
+}
+
+# Function to install packages using Flatpak
+install_with_flatpak() {
+  flatpak install "$1"
+}
+
+# Function to install packages using Nix
+install_with_nix() {
+  nix-env -iA "$1"
+}
+
+# Function to update packages using apt-get
+update_with_apt() {
+  sudo apt-get update
+}
+
+# Function to update packages using Flatpak
+update_with_flatpak() {
+  flatpak update
+}
+
+# Function to update packages using Nix
+update_with_nix() {
+  nix-channel --update
+}
+
+# Function to upgrade packages using apt-get
+upgrade_with_apt() {
+  sudo apt-get upgrade
+}
+
+# Function to upgrade packages using Flatpak
+upgrade_with_flatpak() {
+  flatpak update --system
+}
+
+# Function to upgrade packages using Nix
+upgrade_with_nix() {
+  nix-env -u
+}
+
+# Function to remove packages using apt-get
+remove_with_apt() {
+  sudo apt-get remove "$1"
+}
+
+# Function to autoremove unused packages using apt-get
+autoremove_with_apt() {
+  sudo apt-get autoremove
+}
+
+# Function to remove Nix packages
+remove_with_nix() {
+  nix-env -e "$1"
+}
+
+# Function to remove Flatpaks
+remove_with_flatpak() {
+  flatpak uninstall "$1"
+}
+
+# Function to display the main menu
+display_menu() {
+  clear
+  echo "Package Manager Menu"
+  echo "---------------------"
+  echo "1. Install package"
+  echo "2. Update packages"
+  echo "3. Upgrade packages"
+  echo "4. Remove package"
+  echo "5. Autoremove unused packages"
+  echo "6. Exit"
+}
+
+# Main script
+while true; do
+  display_menu
+
+  read -p "Enter your choice: " choice
+
+  case $choice in
+    1)
+      read -p "Enter package name: " package
+      install_with_apt "$package"
+      read -p "Press Enter to continue..."
+      ;;
+    2)
+      echo "Update packages:"
+      echo "1. apt-get"
+      echo "2. Flatpak"
+      echo "3. Nix"
+      read -p "Enter your choice: " update_choice
+
+      case $update_choice in
+        1)
+          update_with_apt
+          ;;
+        2)
+          update_with_flatpak
+          ;;
+        3)
+          update_with_nix
+          ;;
+        *)
+          echo "Invalid choice. Please try again."
+          ;;
+      esac
+
+      read -p "Press Enter to continue..."
+      ;;
+    3)
+      echo "Upgrade packages:"
+      echo "1. apt-get"
+      echo "2. Flatpak"
+      echo "3. Nix"
+      read -p "Enter your choice: " upgrade_choice
+
+      case $upgrade_choice in
+        1)
+          upgrade_with_apt
+          ;;
+        2)
+          upgrade_with_flatpak
+          ;;
+        3)
+          upgrade_with_nix
+          ;;
+        *)
+          echo "Invalid choice. Please try again."
+          ;;
+      esac
+
+      read -p "Press Enter to continue..."
+      ;;
+    4)
+      echo "Remove package:"
+      echo "1. apt-get"
+      echo "2. Nix"
+      echo "3. Flatpak"
+      read -p "Enter your choice: " remove_choice
+
+      read -p "Enter package name: " package
+
+      case $remove_choice in
+        1)
+          remove_with_apt "$package"
+          ;;
+        2)
+          remove_with_nix "$package"
+          ;;
+        3)
+          remove_with_flatpak "$package"
+          ;;
+        *)
+          echo "Invalid choice. Please try again."
+          ;;
+      esac
+
+      read -p "Press Enter to continue..."
+      ;;
+    5)
+      autoremove_with_apt
+      read -p "Press Enter to continue..."
+      ;;
+    6)
+      echo "Exiting..."
+      break
+      ;;
+    *)
+      echo "Invalid choice. Please try again."
+      read -p "Press Enter to continue..."
+      ;;
+  esac
+done
+
