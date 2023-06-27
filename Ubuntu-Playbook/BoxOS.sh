@@ -24,8 +24,8 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # Install bspwm and other packages
 apt-get install -y bspwm polybar sxhkd rofi xorg qutebrowser kitty
 
-# Copy kitty config
-cp -r kitty ~/.config
+# Copy Box-store program 
+cp Box-store /usr/bin
 
 # Copy config files if directories exist
 if [ -d "$HOME/Downloads/BoxOS-Ubuntu/bspwm/bspwm" ]; then
