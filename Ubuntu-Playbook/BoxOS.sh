@@ -3,11 +3,17 @@
 # Exit immediately if any command fails
 set -e
 
-# Remove Firefox
-snap remove firefox
+fire=firefox 
 
-# Remove Snap package manager
-apt-get remove -y snapd
+
+
+# Remove Firefox and snap if found 
+
+if ! which "$fire" >> /dev/null && which snap >> /dev/null; then
+    sudo snap remove $fire
+    sudo apt-get remove -y snapd
+fi
+	
 
 # Install Nix package manager
 curl -L https://nixos.org/nix/install | sh
@@ -16,16 +22,16 @@ curl -L https://nixos.org/nix/install | sh
 echo "substituters = https://cache.nixos.org https://nixcache.reflex-frp.org" | sudo tee -a /etc/nix/nix.conf
 
 # Install Flatpak
-apt-get install -y flatpak
+sudo apt-get install -y flatpak
 
 # Add Flathub repository
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Install bspwm and other packages
-apt-get install -y bspwm polybar sxhkd rofi xorg qutebrowser kitty
+sudo apt-get install -y bspwm polybar sxhkd rofi xorg qutebrowser kitty
 
 # Copy Box-store program 
-cp Box-store /usr/bin
+sudo cp Box-store /usr/bin
 
 # Copy config files if directories exist
 if [ -d "$HOME/Downloads/BoxOS-Ubuntu/bspwm/bspwm" ]; then
