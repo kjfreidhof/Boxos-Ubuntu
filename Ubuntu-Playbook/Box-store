@@ -78,6 +78,15 @@ display_menu() {
   echo "6. Exit"
 }
 
+# Function to display the installation menu
+display_installation_menu() {
+  echo "Installation Menu"
+  echo "-----------------"
+  echo "1. Install with apt-get"
+  echo "2. Install with Flatpak"
+  echo "3. Install with Nix"
+}
+
 # Main script
 while true; do
   display_menu
@@ -86,8 +95,26 @@ while true; do
 
   case $choice in
     1)
+      display_installation_menu
+      read -p "Enter your choice: " install_choice
+
       read -p "Enter package name: " package
-      install_with_apt "$package"
+
+      case $install_choice in
+        1)
+          install_with_apt "$package"
+          ;;
+        2)
+          install_with_flatpak "$package"
+          ;;
+        3)
+          install_with_nix "$package"
+          ;;
+        *)
+          echo "Invalid choice. Please try again."
+          ;;
+      esac
+
       read -p "Press Enter to continue..."
       ;;
     2)
